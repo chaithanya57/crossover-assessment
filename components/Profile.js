@@ -1,22 +1,22 @@
-import React from "react";
-import { Text, StyleSheet, View } from "react-native";
-import Navbar from "./Navbar";
+import React from 'react';
+import {Text, StyleSheet, View} from 'react-native';
+import Navbar from './Navbar';
 
 function Profile({navigation}) {
   return (
     <View style={styles.container}>
       <Text>For you</Text>
-      <Navbar navigation={navigation}/>
+      <Navbar navigation={navigation} />
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create( {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column-reverse',
-    backgroundColor: 'yellow'
+    backgroundColor: 'yellow',
   },
-})
+});
 
-export default Profile
+export default Profile;

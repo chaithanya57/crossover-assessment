@@ -1,21 +1,21 @@
-import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React from 'react';
+import {Text, StyleSheet, View} from 'react-native';
 
 function ForYou({navigation}) {
   return (
     <View style={styles.container}>
       <Text>For you</Text>
-      <Navbar navigation={navigation}/>
+      <Navbar navigation={navigation} />
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create( {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column-reverse',
-    backgroundColor: 'yellow'
+    backgroundColor: 'yellow',
   },
-})
+});
 
-export default ForYou
+export default ForYou;

@@ -1,36 +1,77 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import { NavigationContainer } from '@react-navigation/native';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {useContext} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import ForYou from './components/ForYou';
-import LinearGradient from 'react-native-linear-gradient';
-import CardContainer from './components/CardContainer';
+import {ArticleProvider, ArticleContext} from './context/ArticleContext';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+import LoginScreen from './components/LoginScreen';
+import ArticlesList from './components/ArticlesList';
+import CreateArticle from './components/CreateArticleRN';
+import ViewArticle from './components/ViewArticle';
+import EditArticle from './components/EditArticle';
+
+const Stack = createNativeStackNavigator();
+
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: '#0f3a52',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+  cardStyle: {
+    backgroundColor: '#082434',
+  },
+};
+
+function AppNavigator() {
+  const {currentUser} = useContext(ArticleContext);
 
   return (
-      <LinearGradient colors={['#082434', '#083c4c']} style={styles.container}>
-        <CardContainer/>
-        <Navbar/>
-      </LinearGradient>
-  )
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={screenOptions}>
+        {!currentUser ? (
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{headerShown: false}}
+          />
+        ) : (
+          <>
+            <Stack.Screen
+              name="ArticlesList"
+              component={ArticlesList}
+              options={{title: 'Articles'}}
+            />
+            <Stack.Screen
+              name="CreateArticle"
+              component={CreateArticle}
+              options={{title: 'Create Article'}}
+            />
+            <Stack.Screen
+              name="ViewArticle"
+              component={ViewArticle}
+              options={{title: 'Article'}}
+            />
+            <Stack.Screen
+              name="EditArticle"
+              component={EditArticle}
+              options={{title: 'Edit Article'}}
+            />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
-const styles = StyleSheet.create( {
-  container: {
-    flex: 1,
-    flexDirection: 'column-reverse',
-  },
-})
+function App() {
+  return (
+    <ArticleProvider>
+      <AppNavigator />
+    </ArticleProvider>
+  );
+}
 
 export default App;
